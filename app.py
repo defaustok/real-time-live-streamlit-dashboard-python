@@ -100,10 +100,10 @@ while True:
     
     df['LP Balance'] = (df['Tokens_in_Pool'] * df['Price'] * 2) #balance of LP in USD
     df['Short PnL'] = df['Unrealized_PnL_%'] * initial_balance #PnL of short position in USD
-    df['Funding_Fees_USD'] = (df['Funding_APR'] / 105120) * df['Total_Open_Short_Amount'] * df['Price']
+    df['Funding_Fees_USD'] = (df['Funding_APR'] / 6307200) * df['Total_Open_Short_Amount'] * df['Price']
     df['Funding_Fees_Agg_USD'] = (df['Funding_Fees_USD']).cumsum()
     df['Funding_Fees_Agg_percent'] = df['Funding_Fees_Agg_USD'] / initial_balance 
-    df['Pool_Fees_USD'] = (df['Pool_APR'] / 105120) * df['LP Balance']
+    df['Pool_Fees_USD'] = (df['Pool_APR'] / 6307200) * df['LP Balance']
     df['Shorting_Fees_Agg_USD'] = df['Shorting_Fees'] * initial_balance
     df['Pool_Fees_Agg_USD'] = (df['Pool_Fees_USD']).cumsum()
     df['Pool_Fees_Agg_percent'] = df['Pool_Fees_Agg_USD'] / initial_balance 
@@ -244,3 +244,5 @@ while True:
         st.dataframe((df.tail(10)).sort_index(axis = 1))
     time.sleep(1)
     #placeholder.empty()
+
+
