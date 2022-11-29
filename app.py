@@ -244,7 +244,15 @@ while True:
                 go.Scatter(x=df.index, y=(df['Pool_Fees_Agg_USD'] + df['Shorting_Fees_Agg_USD'] + df['Funding_Fees_Agg_USD']), name="Sum Fees, USD"))
             
             st.write(fig6)
+        st.markdown("### Tokens in Pool VS Tokens in Short")
+  
+        fig7 = go.Figure()
+        fig7.add_trace(
+            go.Scatter(x=df.index, y=df['Amount B'], name="Amoun Tokens"))
+        fig7.add_trace(
+            go.Scatter(x=df.index, y=np.abs(df['Total_Open_Short_Amount']), name="Shorting Fees, USD"))
         
+        st.write(fig7)
         st.markdown("### Detailed Data View")
         st.dataframe((df.tail(10)).sort_index(axis = 1))
     time.sleep(1)
