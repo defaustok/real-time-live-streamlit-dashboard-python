@@ -73,7 +73,7 @@ st.title("Hedging Bot Statistics, CA")
 
 #job_filter = st.selectbox("Select TimeFrame", ['5s','10s','1m','5m','1h'])
 
-
+@st.cache
 def get_data():
     fileobj = get_byte_fileobj('defaust', 'hedging-bot-statistics', 'stat.csv', 'defaust-343537e24181.json')
     df1 = pd.read_csv(fileobj)
