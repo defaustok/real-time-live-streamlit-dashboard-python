@@ -183,6 +183,12 @@ while True:
             fig.add_trace(
                 go.Scatter(x=df.index, y=df['Price'], name="Price"),
                 secondary_y=False,)
+            fig.add_trace(
+                go.Scatter(x=df.index, y=df['Lower_Price'], name="Lower Range"),
+                secondary_y=False,)
+            fig.add_trace(
+                go.Scatter(x=df.index, y=df['Upper_Price'], name="Upper Range"),
+                secondary_y=False,)
             
             fig.add_trace(
                 go.Scatter(x=df.index, y=df['Average_Open_Price'], name="Average Open Price"),
