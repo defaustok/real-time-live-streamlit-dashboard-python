@@ -82,7 +82,7 @@ with columns1:
     'Choose position',
     (files))
 with columns2:
-    timeFrame = st.selectbox("Select TimeFrame", ['5s','tick','10s','60s','5m','1h'])
+    timeFrame = st.selectbox("Select TimeFrame", ['5s','20ms','10s','60s','5m','1h'])
 
 def get_data():
     fileobj = get_byte_fileobj('defaust', 'hedging-bot-statistics', str(option), './defaust-343537e24181.json')
@@ -95,7 +95,7 @@ placeholder = st.empty()
 
 
 
-apr_mapping = {'tick' : 157784630, '5s' : 6311385.2, '10s' : 3155692.6, '60s' : 525948.7666666667, '5m' : 105189.7533333333, '1h' : 8765.8127777778}
+apr_mapping = {'20ms' : 157784630, '5s' : 6311385.2, '10s' : 3155692.6, '60s' : 525948.7666666667, '5m' : 105189.7533333333, '1h' : 8765.8127777778}
 while True:
     df = pd.DataFrame()
     df = df.join(get_data(), how = 'outer')
