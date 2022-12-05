@@ -71,7 +71,7 @@ st.title("Hedging Bot v3 Statistics, CA")
 
 # top-level filters 
 files = []
-path_to_private_key = '/Users/oleksiikoval/Documents/GitHub/real-time-live-streamlit-dashboard-python/defaust-343537e24181.json'
+path_to_private_key = '/defaust-343537e24181.json'
 client = storage.Client.from_service_account_json(json_credentials_path=path_to_private_key)
 for blob in client.list_blobs(bucket_or_name='hedging-bot-statistics'):
     files.append((blob.name))
