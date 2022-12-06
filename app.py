@@ -75,7 +75,7 @@ path_to_private_key = '/defaust-343537e24181.json'
 client = storage.Client.from_service_account_json(json_credentials_path=path_to_private_key)
 for blob in client.list_blobs(bucket_or_name='hedging-bot-statistics'):
     files.append((blob.name))
-
+#sdc
 columns1, columns2, columns3, columns4 = st.columns(4)
 with columns1:
     option = st.selectbox(
