@@ -84,7 +84,7 @@ with columns2:
 
 
 def get_data():
-    fileobj = get_byte_fileobj('defaust', 'hedging-bot-statistics', str(option), path_to_private_key)
+    fileobj = get_byte_fileobj('defaust', 'hedging-bot-statistics', str(option), service_account_credentials_path = path_to_private_key)
     df1 = pd.read_csv(fileobj)
     return df1
 get_data()
