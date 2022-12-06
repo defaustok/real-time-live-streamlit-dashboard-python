@@ -71,27 +71,17 @@ st.title("Hedging Bot v3 Statistics, CA")
 
 # top-level filters 
 files = []
-path_to_private_key = '/defaust-343537e24181.json'
+path_to_private_key = "/defaust-343537e24181.json"
 client = storage.Client.from_service_account_json(json_credentials_path=path_to_private_key)
 for blob in client.list_blobs(bucket_or_name='hedging-bot-statistics'):
-    files.append((blob.name))
+    files.append(blob.name)
 #sdc
 columns1, columns2, columns3, columns4 = st.columns(4)
 with columns1:
-    option = st.selectbox(
-    'Choose position',
-    (files))
+    option = st.selectbox('Choose position', files)
 with columns2:
     timeFrame = st.selectbox("Select TimeFrame", ['5s','20ms','10s','60s','5m','1h'])
-with columns3:
-    pattern = option.split('_')
-    fin = re.findall(r'\d+',pattern[3])
-    nft = (int(fin[0]))
-    url = 'https://app.uniswap.org/#/pool/'+str(nft)
-    st.markdown(f'''
-<a href={url}><button style="background-color:Black;color:white;">Open NFT on Uniswap</button></a>
-''',
-    unsafe_allow_html=True)
+
 
 def get_data():
     fileobj = get_byte_fileobj('defaust', 'hedging-bot-statistics', str(option), path_to_private_key)
