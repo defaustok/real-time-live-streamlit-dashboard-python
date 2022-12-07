@@ -112,6 +112,8 @@ while True:
     df.set_index(df['Date'],inplace = True)
     df['Fees_in_risk_token_in_usd'] = df['Fees_in_risk_token'] * df['Price']
     initial_balance = ((df['Amount B'].iloc[0]) * (df['Price'].iloc[0]))+ (df['Amount A'].iloc[0]) #start balance for strategy
+    total_time = (df.index[-1]-df.index[0])
+    diff_in_seconds = total_time.total_seconds() / 1
     
     df = df.groupby(pd.Grouper(key='Date', axis=0, freq=timeFrame, sort=True)).last().ffill()
     
@@ -135,6 +137,7 @@ while True:
     df['Pool_Fees_Agg_percent'] = df['Pool_Fees_Agg_USD'] / initial_balance 
     df['Overall Return_usd'] = ((df['LP Balance']-initial_balance) + df['Short PnL'] + df['Pool_Fees_Agg_USD'] + df['Funding_Fees_Agg_USD'] + df['Shorting_Fees_Agg_USD'])
     df['Overall Return_%'] = (df['Overall Return_usd'] / initial_balance) * 100
+    df['APR'] = (df['Pool_Fees_Agg_percent'] / diff_in_seconds) * 31536000
     
     lp_value =  df['LP Balance'].iloc[-1] #current balance of LP in USD
     privious_lp_value = df['LP Balance'].iloc[-2]
@@ -272,15 +275,26 @@ while True:
                 go.Scatter(x=df.index, y=(df['Pool_Fees_Agg_USD'] + df['Shorting_Fees_Agg_USD'] + df['Funding_Fees_Agg_USD']), name="Sum Fees, USD"))
             
             st.write(fig6)
-        st.markdown("### Tokens in Pool VS Tokens in Short")
-  
-        fig7 = go.Figure()
-        fig7.add_trace(
-            go.Scatter(x=df.index, y=df['Amount B'], name="Amoun Tokens"))
-        fig7.add_trace(
-            go.Scatter(x=df.index, y=np.abs(df['Total_Open_Short_Amount']), name="Shorting Fees, USD"))
+            
+        fig_col7, fig_col8 = st.columns(2)
         
-        st.write(fig7)
+       
+        with fig_col7:
+            st.markdown("### Tokens in Pool VS Tokens in Short")
+            fig7 = go.Figure()
+            fig7.add_trace(
+                go.Scatter(x=df.index, y=df['Amount B'], name="Amoun Tokens"))
+            fig7.add_trace(
+                go.Scatter(x=df.index, y=np.abs(df['Total_Open_Short_Amount']), name="Shorting Fees, USD"))
+            
+            st.write(fig7)
+        with fig_col8:
+            st.markdown("### APR")
+            fig8 = go.Figure()
+            fig8.add_trace(
+                go.Scatter(x=df.index, y=df['APR']*100, name="APR,%"))
+            
+            st.write(fig8)
         st.markdown("### Detailed Data View")
         st.dataframe((df.tail(10)).sort_index(axis = 1))
     time.sleep(1)
