@@ -283,7 +283,7 @@ while True:
             st.markdown("### Tokens in Pool VS Tokens in Short")
             fig7 = go.Figure()
             fig7.add_trace(
-                go.Scatter(x=df.index, y=df['Amount B'], name="Amoun Tokens"))
+                go.Scatter(x=df.index, y=df['Amount B'], name="Amount Tokens"))
             fig7.add_trace(
                 go.Scatter(x=df.index, y=np.abs(df['Total_Open_Short_Amount']), name="Shorting Fees, USD"))
             
@@ -293,8 +293,9 @@ while True:
             fig8 = go.Figure()
             fig8.add_trace(
                 go.Scatter(x=df.index, y=df['APR']*100, name="APR,%"))
-            
+            fig8.legends()
             st.write(fig8)
+        
         st.markdown("### Detailed Data View")
         st.dataframe((df.tail(10)).sort_index(axis = 1))
     time.sleep(1)
