@@ -292,8 +292,8 @@ while True:
             st.markdown("### APR")
             fig8 = go.Figure()
             fig8.add_trace(
-                go.Scatter(x=df.index, y=df['APR']*100, name="APR,%"))
-            fig8.legends()
+                go.Scatter(x=df.index, y=df['APR']*100, name="APR,%", showlegend=True))
+            
             st.write(fig8)
         
         st.markdown("### Detailed Data View")
