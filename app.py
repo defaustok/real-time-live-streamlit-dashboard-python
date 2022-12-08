@@ -136,7 +136,7 @@ while True:
     df['Overall Return_usd'] = ((df['LP Balance']-initial_balance) + df['Short PnL'] + df['Pool_Fees_Agg_USD'] + df['Funding_Fees_Agg_USD'] + df['Shorting_Fees_Agg_USD'])
     df['Overall Return_%'] = (df['Overall Return_usd'] / initial_balance) * 100
     df['APR'] = (df['Pool_Fees_Agg_percent'] / diff_in_seconds) * 31536000
-    
+    df['APR minus'] = (df['Shorting_Fees_Agg_percent'] / diff_in_seconds) * 31536000
     lp_value =  df['LP Balance'].iloc[-1] #current balance of LP in USD
     privious_lp_value = df['LP Balance'].iloc[-2]
     lp_pnl = lp_value - initial_balance #current PnL of LP position in USD
@@ -291,7 +291,8 @@ while True:
             fig8 = go.Figure()
             fig8.add_trace(
                 go.Scatter(x=df.index, y=df['APR']*100, name="APR,%", showlegend=True))
-            
+            fig8.add_trace(
+                go.Scatter(x=df.index, y=df['APR minus']*100, name="APR minus,%", showlegend=True))
             st.write(fig8)
         
         st.markdown("### Detailed Data View")
