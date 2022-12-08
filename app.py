@@ -292,9 +292,12 @@ while True:
             fig8.add_trace(
                 go.Scatter(x=df.index, y=df['APR']*100, name="APR,%", showlegend=True))
             fig8.add_trace(
+                go.Scatter(x=df.index, y=(df['APR']-df['APR minus'])*100, name="APR sum,%", showlegend=True))
+            fig8.add_trace(
                 go.Scatter(x=df.index, y=df['APR minus']*100, name="APR minus,%", showlegend=True))
             st.write(fig8)
-        
+            st.write(fig8)
+            
         st.markdown("### Detailed Data View")
         st.dataframe((df.tail(10)).sort_index(axis = 1))
     time.sleep(1)
