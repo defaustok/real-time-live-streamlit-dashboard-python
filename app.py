@@ -296,7 +296,6 @@ while True:
             fig8.add_trace(
                 go.Scatter(x=df.index, y=df['APR minus']*100, name="APR minus,%", showlegend=True))
             st.write(fig8)
-            st.write(fig8)
             
         st.markdown("### Detailed Data View")
         st.dataframe((df.tail(10)).sort_index(axis = 1))
