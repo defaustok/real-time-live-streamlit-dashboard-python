@@ -109,11 +109,12 @@ while True:
     df = pd.DataFrame()
     df = df.join(get_data(), how = 'outer')
     df['Date'] = pd.to_datetime(df['Date'], format = '%Y-%m-%d %H:%M:%S.%f')
+    df['Date_of_Creation'] = pd.to_datetime(df['Date_of_Creation'], format = '%Y-%m-%d %H:%M:%S.%f')
     df.set_index(df['Date'],inplace = True)
     df['Fees_in_risk_token_in_usd'] = df['Fees_in_risk_token'] * df['Price']
     initial_balance = ((df['Amount B'].iloc[0]) * (df['Price'].iloc[0]))+ (df['Amount A'].iloc[0]) #start balance for strategy
     
-    total_time = (df.index[-1]-df['Date_of_Creation'].iloc[0])
+    total_time = (df.index[-1] - df['Date_of_Creation'].iloc[0])
     diff_in_seconds = total_time.total_seconds() / 1
     
     df = df.groupby(pd.Grouper(key='Date', axis=0, freq=timeFrame, sort=True)).last().ffill()
