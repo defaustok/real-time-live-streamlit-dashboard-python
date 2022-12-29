@@ -20,7 +20,6 @@ session = boto3.Session(
     aws_access_key_id=AWS_SERVER_PUBLIC_KEY,
     aws_secret_access_key=AWS_SERVER_SECRET_KEY,
 )
-
 def get_byte_fileobj(project: str,
                      bucket: str,
                      path: str,
@@ -87,6 +86,7 @@ with columns1:
     option = st.selectbox('Choose position', files)
     
 def get_data():
+    s3 = session.client('s3')
     try:
         obj = s3.get_object(Bucket='hedging-bot', Key=option)
         df1 = pd.read_csv(obj['Body'])
