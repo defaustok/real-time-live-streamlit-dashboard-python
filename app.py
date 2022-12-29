@@ -88,9 +88,11 @@ with columns1:
     
 def get_data():
     try:
-        df1 = pd.read_csv(f"s3://hedging-bot/{option}")
+        obj = s3.get_object(Bucket='hedging-bot', Key=option)
+        df1 = pd.read_csv(obj['Body'])
     except:
-        df1 = pd.read_csv(f"s3://hedging-bot/{option}")
+        obj = s3.get_object(Bucket='hedging-bot', Key=option)
+        df1 = pd.read_csv(obj['Body'])
     return df1
 
 df = get_data()
