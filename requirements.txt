@@ -14,3 +14,4 @@ google-resumable-media==2.4.0
 googleapis-common-protos==1.56.4
 boto3
 fsspec
+s3fs
