@@ -12,6 +12,15 @@ import boto3
 import re
 import urllib.request
 from PIL import Image
+
+AWS_SERVER_PUBLIC_KEY = st.secrets['AWS_SERVER_PUBLIC_KEY']
+AWS_SERVER_SECRET_KEY = st.secrets['AWS_SERVER_SECRET_KEY']
+
+session = boto3.Session(
+    aws_access_key_id=AWS_SERVER_PUBLIC_KEY,
+    aws_secret_access_key=AWS_SERVER_SECRET_KEY,
+)
+
 def get_byte_fileobj(project: str,
                      bucket: str,
                      path: str,
@@ -66,7 +75,7 @@ st.title("Hedging Bot v3 Statistics, CA")
 
 # top-level filters 
 files = []
-s3 = boto3.resource('s3')
+s3 = session.resource('s3')
 my_bucket = s3.Bucket('hedging-bot')
 for my_bucket_object in my_bucket.objects.all():
     files.append(my_bucket_object.key)
